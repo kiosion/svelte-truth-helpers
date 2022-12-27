@@ -40,7 +40,7 @@ Not necessarily a huge difference, but it can make your code a bit more readable
 
 Add the preprocesser plugin to your `svelte.config.js`:
 
-```js
+```javascript
 import truthHelpers from 'svelte-truth-helpers';
 
 const config = {
