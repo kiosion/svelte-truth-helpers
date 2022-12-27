@@ -15,8 +15,6 @@
 
 	{#gt magicNum, 42}
 		<p>magicNum is &gt; 41</p>
-	{:else}
-		<p>Darn, magicNum is &lt; 41</p>
 	{/gt}
 
 	{#unless (alwaysFalse === true)}

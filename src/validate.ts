@@ -16,11 +16,11 @@ const branchHasContent = (node: Node): boolean => {
   }
 
   return false;
-}
+};
 
 export const validateSyntax = (ast: Node): void => {
   const allowedTypes = ['svelteBranch'],
-    throwError = (details: string = '') => {
+    throwError = (details = '') => {
       throw new SyntaxError(`Invalid equality syntax. ${details}`);
     },
     branchErrorMsg = 'Statements may only contain {:else} branches.';

@@ -9,8 +9,9 @@ import {
 import { allowedTags } from './utils';
 import { validateSyntax } from './validate';
 import MagicString, { SourceMap } from 'magic-string';
+import { CodeWithSourceMap } from 'source-map-js';
 
-function walk (node: Node, cbs: { [key: string]: Function }) {
+function walk(node: Node, cbs: { [key: string]: (node: Node) => void }) {
   const children = node.children || node.branches;
   const callback = cbs[node.type];
 
@@ -25,16 +26,18 @@ function walk (node: Node, cbs: { [key: string]: Function }) {
   return node;
 }
 
-function buildConditions ({
-    type,
-    expression,
-  }: {
-    type: string,
-    expression: string
-  }): string {
+function buildConditions({
+  type,
+  expression
+}: {
+  type: string;
+  expression: string;
+}): string {
   console.log('building conditions for: ', type, expression);
   const valuesLengthError = (op: string) => {
-    throw new SyntaxError(`Invalid equality syntax. {#${op}} statements must contain two values.`);
+    throw new SyntaxError(
+      `Invalid equality syntax. {#${op}} statements must contain two values.`
+    );
   };
 
   switch (type) {
@@ -103,19 +106,26 @@ function buildConditions ({
       return values.join(' || ');
     }
   }
-  
+
   // Default fallback
   return `${expression}`;
 }
 
-function getInjectionValue (type: string, expression: string, branch: Node): string {
+function getInjectionValue(
+  type: string,
+  expression: string,
+  branch: Node
+): string {
   const comment = `<!-- Injected by svelte-truth-helpers -->`;
   const branchType = branch?.name;
   console.log('getInjectionValue: branchType: ', branchType);
 
   switch (type) {
     case '_open_':
-      return `${comment}\n{#if ${buildConditions({ type: branchType, expression })}}`;
+      return `${comment}\n{#if ${buildConditions({
+        type: branchType,
+        expression
+      })}}`;
     case 'else':
       return `{:else}`;
     case '_close_':
@@ -124,16 +134,16 @@ function getInjectionValue (type: string, expression: string, branch: Node): str
   return '';
 }
 
-function getInjectionPosition ({
+function getInjectionPosition({
   block,
   branch,
   main,
   type
 }: {
-  block: Node,
-  branch: Node,
-  main: Node,
-  type: string
+  block: Node;
+  branch: Node;
+  main: Node;
+  type: string;
 }): Position {
   let firstChild;
 
@@ -171,10 +181,10 @@ const buildInjection = ({
   main,
   customType = undefined
 }: {
-  block: Node,
-  branch: Node,
-  main: Node,
-  customType?: string
+  block: Node;
+  branch: Node;
+  main: Node;
+  customType?: string;
 }): Injection => {
   const type = (customType || branch?.name) as string,
     expression = branch?.expression?.value;
@@ -211,11 +221,13 @@ const processMarkup = ({
           customType: '_open_'
         }),
         // Only branch we care about (& is valid) is {:else}
-        ...branches.map((branch) => buildInjection({
-          block: node,
-          main: mainBranch,
-          branch
-        })),
+        ...branches.map((branch) =>
+          buildInjection({
+            block: node,
+            main: mainBranch,
+            branch
+          })
+        ),
         buildInjection({
           block: node,
           main: mainBranch,
@@ -244,7 +256,9 @@ const processMarkup = ({
   return { code: output.toString(), map };
 };
 
-export default function preprocess(): { markup: Function } {
+export default function preprocess(): {
+  markup: ({ content, filename }: PreprocessorOptions) => PreprocessorOutput;
+} {
   return {
     markup: processMarkup
   };
