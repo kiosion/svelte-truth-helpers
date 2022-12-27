@@ -1,0 +1,38 @@
+{
+  "name": "svelte-truth-helpers",
+  "version": "0.1.0",
+  "decription": "",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rimraf ./dist/*",
+    "test": "vitest run",
+    "compile": "npm run clean && babel --out-dir dist --extensions \".ts\" src",
+    "prepublishOnly": "npm run compile && npm run test",
+    "prepare": "husky install"
+  },
+  "keywords": [],
+  "author": "kiosion",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "^7.18.9",
+    "@babel/core": "^7.18.9",
+    "@babel/preset-env": "^7.18.9",
+    "@babel/preset-typescript": "^7.18.6",
+    "@types/node": "^18.0.6",
+    "babel-plugin-add-module-exports": "^1.0.4",
+    "magic-string": "^0.26.2",
+    "rimraf": "~3.0.0",
+    "svelte-parse": "^0.1.0",
+    "typescript": "^4.7.4"
+  },
+  "devDependencies": {
+    "husky": "^8.0.1",
+    "vitest": "^0.19.1"
+  },
+  "peerDependencies": {
+    "svelte": "^4.0.0"
+  }
+}
