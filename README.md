@@ -33,7 +33,7 @@ Not necessarily a huge difference, but it can make your code a bit more readable
 
 ## Installation
 
-> **Note**
+> **Note** -
 > Since this plugin isn't yet published, you can either install directly from GitHub via a `git://` URL in your `package.json`, or clone the repo and use `yarn link` to use locally.
 
 ## Usage
