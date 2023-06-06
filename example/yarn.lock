@@ -2683,8 +2683,18 @@ svelte-preprocess@^4.0.0:
     strip-indent "^3.0.0"
 
 "svelte-truth-helpers@link:..":
-  version "0.0.0"
-  uid ""
+  version "0.1.0"
+  dependencies:
+    "@babel/cli" "^7.18.9"
+    "@babel/core" "^7.18.9"
+    "@babel/preset-env" "^7.18.9"
+    "@babel/preset-typescript" "^7.18.6"
+    "@types/node" "^18.0.6"
+    babel-plugin-add-module-exports "^1.0.4"
+    magic-string "^0.26.2"
+    rimraf "~3.0.0"
+    svelte-parse "^0.1.0"
+    typescript "^4.7.4"
 
 svelte@^3.54.0:
   version "3.55.0"
@@ -2822,10 +2832,10 @@ vite-plugin-inspect@^0.7.11:
     sirv "^2.0.2"
     ufo "^1.0.1"
 
-vite@^4.0.0:
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-4.0.3.tgz#de27ad3f263a03ae9419cdc8bc07721eadcba8b9"
-  integrity sha512-HvuNv1RdE7deIfQb8mPk51UKjqptO/4RXZ5yXSAvurd5xOckwS/gg8h9Tky3uSbnjYTgUm0hVCet1cyhKd73ZA==
+vite@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-4.0.5.tgz#634f0bd1edf8bb8468ed42a1c3fd938c67d2f94b"
+  integrity sha512-7m87RC+caiAxG+8j3jObveRLqaWA/neAdCat6JAZwMkSWqFHOvg8MYe5fAQxVBRAuKAQ1S6XDh3CBQuLNbY33w==
   dependencies:
     esbuild "^0.16.3"
     postcss "^8.4.20"
